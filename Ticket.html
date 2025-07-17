@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTRANS CORPORATION TICKET SYSTEM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            font-size: 20px;
+            margin: 5px 0;
+            color: #0066cc;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .route-info {
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #666;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0055aa;
+        }
+        .btn-secondary {
+            background-color: #666;
+        }
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+        .info-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .info-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .payment-methods button {
+            flex: 1;
+        }
+        .hidden {
+            display: none;
+        }
+        .page {
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .scrollable {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <div class="header">
+                <h1>SANTRANS CORPORATION TICKET</h1>
+                <p>SERIAL #: MP071455</p>
+                <p>BUS #: 179100</p>
+            </div>
+            <p class="route-info">FVR TERMINAL TO ST. CRUZ TERMINAL ROUTES VIA NLEX (MARILAO EXIT)</p>
+            <button id="start-btn" class="btn">START TICKETING</button>
+            <button id="conductor-btn" class="btn btn-secondary">CONDUCTOR MENU</button>
+        </div>
+
+        <!-- Route Selection Page -->
+        <div id="route-page" class="page hidden">
+            <div class="header">
+                <h1>SELECT ROUTE</h1>
+            </div>
+            <div class="scrollable">
+                <h3>FVR TERMINAL ROUTES:</h3>
+                <button class="route-btn btn" data-from="FVR" data-to="SAMPOL">FVR TO SAMPOL</button>
+                <button class="route-btn btn" data-from="FVR" data-to="AREA E">FVR TO AREA E</button>
+                <button class="route-btn btn" data-from="FVR" data-to="MOTORPOL">FVR TO MOTORPOL</button>
+                <button class="route-btn btn" data-from="FVR" data-to="PROPER">FVR TO PROPER</button>
+                <button class="route-btn btn" data-from="FVR" data-to="NEW CITY HALL">FVR TO NEW CITY HALL</button>
+                <button class="route-btn btn" data-from="FVR" data-to="KAYPIAN">FVR TO KAYPIAN</button>
+                <button class="route-btn btn" data-from="FVR" data-to="SAN JOSE">FVR TO SAN JOSE</button>
+
+                <h3>SAPANG PALAY ROUTES:</h3>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="NEW CITY HALL">SAPANG PALAY TO NEW CITY HALL</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="KAYPIAN">SAPANG PALAY TO KAYPIAN</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="SAN JOSE">SAPANG PALAY TO SAN JOSE</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="MUZON">SAPANG PALAY TO MUZON</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="LUMA DE GATO">SAPANG PALAY TO LUMA DE GATO</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="FRENZA">SAPANG PALAY TO FRENZA</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="DIVINE MERCY">SAPANG PALAY TO DIVINE MERCY</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="MARILAO EXIT">SAPANG PALAY TO MARILAO EXIT</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="AYALA MALLS (BALINTAWAK)">SAPANG PALAY TO AYALA MALLS (BALINTAWAK)</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="BALINTAWAK">SAPANG PALAY TO BALINTAWAK</button>
+                <button class="route-btn btn" data-from="SAPANG PALAY" data-to="ST. CRUZ">SAPANG PALAY TO ST. CRUZ</button>
+            </div>
+            <button id="back-from-route" class="btn btn-secondary">BACK</button>
+        </div>
+
+        <!-- Passenger Type Page -->
+        <div id="passenger-page" class="page hidden">
+            <div class="header">
+                <h1>SANTRANS CORPORATION TICKET</h1>
+                <p>SERIAL #: MP071455</p>
+                <p>BUS #: 179100</p>
+            </div>
+            <div class="info-item">
+                <div class="info-label">FROM</div>
+                <div id="from-display">FVR (Terminal)</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">TO</div>
+                <div id="to-display">SAMPOL</div>
+            </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <p>Passenger Fare Type?</p>
+            </div>
+            <button id="regular-btn" class="btn">REGULAR</button>
+            <button id="student-btn" class="btn">STUDENT</button>
+            <button id="senior-btn" class="btn">SENIOR</button>
+            <button id="back-from-passenger" class="btn btn-secondary">BACK</button>
+        </div>
+
+        <!-- Ticket Page -->
+        <div id="ticket-page" class="page hidden">
+            <div class="header">
+                <h1>SANTRANS CORPORATION</h1>
+            </div>
+            <div class="info-item">
+                <div id="date-time-display">DATE & TIME: 07-08-2025 11:11:AM</div>
+            </div>
+            <div class="info-item">
+                <div>SERIAL #: MP071455</div>
+                <div>BUS #: 179100</div>
+            </div>
+            <div class="info-item">
+                <div>From: <span id="ticket-from">FVR</span></div>
+                <div>To: <span id="ticket-to">SAMPOL</span></div>
+            </div>
+            <div class="info-item">
+                <div>Regular: ₱<span id="regular-fare">15.00</span></div>
+                <div>Discount: ₱<span id="discount">0.00</span> (<span id="passenger-type">No Discount</span>)</div>
+            </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <p>PAYMENT METHOD?</p>
+                <div class="payment-methods">
+                    <button id="gcash-btn" class="btn">GCash</button>
+                    <button id="cash-btn" class="btn">CASH</button>
+                </div>
+            </div>
+            <button id="back-from-ticket" class="btn btn-secondary">BACK</button>
+        </div>
+
+        <!-- Print Options -->
+        <div id="print-page" class="page hidden">
+            <div class="header">
+                <h1>Print Options</h1>
+            </div>
+            <button id="print-btn" class="btn">PRINT</button>
+            <button id="textfile-btn" class="btn">IN TEXT FILE ONLY</button>
+            <button id="back-from-print" class="btn btn-secondary">BACK</button>
+        </div>
+
+        <!-- Conductor Menu -->
+        <div id="conductor-page" class="page hidden">
+            <div class="header">
+                <h1>CONDUCTOR MENU</h1>
+            </div>
+            <div class="info-item">
+                <div>TOTAL TICKETED PASSENGER: <span id="total-passengers">0</span></div>
+                <div>REGULAR PASSENGER: <span id="regular-passengers">0</span></div>
+                <div>STUDENT PASSENGER: <span id="student-passengers">0</span></div>
+                <div>SENIOR CITIZEN PASSENGER: <span id="senior-passengers">0</span></div>
+                <div>TOTAL COLLECTED PAYMENTS: ₱<span id="total-payments">0.00</span></div>
+                <div>CASHLESS METHOD (GCash): ₱<span id="cashless-payments">0.00</span></div>
+                <div>CASH: ₱<span id="cash-payments">0.00</span></div>
+            </div>
+            <button id="print-report-btn" class="btn">PRINT</button>
+            <button id="back-from-conductor" class="btn btn-secondary">BACK</button>
+        </div>
+    </div>
+
+    <script>
+        // Fare data
+        const fares = {
+            "FVR-SAMPOL": 15.0,
+            "FVR-AREA E": 15.0,
+            "FVR-MOTORPOL": 15.0,
+            "FVR-PROPER": 15.0,
+            "FVR-KAYPIAN": 15.0,
+            "FVR-NEW CITY HALL": 15.0,
+            "FVR-SAN JOSE": 15.0,
+            "SAPANG PALAY-KAYPIAN": 15.0,
+            "SAPANG PALAY-NEW CITY HALL": 15.0,
+            "SAPANG PALAY-SAN JOSE": 18.0,
+            "SAPANG PALAY-MUZON": 25.0,
+            "SAPANG PALAY-LUMA DE GATO": 30.0,
+            "SAPANG PALAY-FRENZA": 40.0,
+            "SAPANG PALAY-DIVINE MERCY": 45.0,
+            "SAPANG PALAY-MARILAO EXIT": 40.0,
+            "SAPANG PALAY-AYALA MALLS (BALINTAWAK)": 85.0,
+            "SAPANG PALAY-BALINTAWAK": 85.0,
+            "SAPANG PALAY-ST. CRUZ": 100.0
+        };
+
+        // Current ticket data
+        let currentTicket = {
+            from: "",
+            to: "",
+            passengerType: "regular",
+            regularFare: 0,
+            discount: 0,
+            finalFare: 0,
+            paymentMethod: ""
+        };
+
+        // Statistics
+        let stats = {
+            regularPassengers: 0,
+            studentPassengers: 0,
+            seniorPassengers: 0,
+            totalPayments: 0,
+            cashlessPayments: 0,
+            cashPayments: 0
+        };
+
+        // DOM elements
+        const pages = {
+            home: document.getElementById('home-page'),
+            route: document.getElementById('route-page'),
+            passenger: document.getElementById('passenger-page'),
+            ticket: document.getElementById('ticket-page'),
+            print: document.getElementById('print-page'),
+            conductor: document.getElementById('conductor-page')
+        };
+
+        // Navigation functions
+        function showPage(page) {
+            // Hide all pages
+            Object.values(pages).forEach(p => p.classList.add('hidden'));
+            // Show the requested page
+            pages[page].classList.remove('hidden');
+        }
+
+        // Initialize date display
+        function updateDateTime() {
+            const now = new Date();
+            const formattedDate = `${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}-${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+            document.getElementById('date-time-display').textContent = `DATE & TIME: ${formattedDate}`;
+        }
+
+        // Update statistics display
+        function updateStatsDisplay() {
+            document.getElementById('total-passengers').textContent = 
+                stats.regularPassengers + stats.studentPassengers + stats.seniorPassengers;
+            document.getElementById('regular-passengers').textContent = stats.regularPassengers;
+            document.getElementById('student-passengers').textContent = stats.studentPassengers;
+            document.getElementById('senior-passengers').textContent = stats.seniorPassengers;
+            document.getElementById('total-payments').textContent = stats.totalPayments.toFixed(2);
+            document.getElementById('cashless-payments').textContent = stats.cashlessPayments.toFixed(2);
+            document.getElementById('cash-payments').textContent = stats.cashPayments.toFixed(2);
+        }
+
+        // Calculate fare
+        function calculateFare() {
+            const routeKey = `${currentTicket.from}-${currentTicket.to.replace(" (BALINTAWAK)", "").trim()}`;
+            currentTicket.regularFare = fares[routeKey] || 0;
+            
+            if (currentTicket.passengerType === "student" || currentTicket.passengerType === "senior") {
+                currentTicket.discount = currentTicket.regularFare * 0.20;
+            } else {
+                currentTicket.discount = 0;
+            }
+            
+            currentTicket.finalFare = currentTicket.regularFare - currentTicket.discount;
+            
+            // Update ticket display
+            document.getElementById('regular-fare').textContent = currentTicket.regularFare.toFixed(2);
+            document.getElementById('discount').textContent = currentTicket.discount.toFixed(2);
+            document.getElementById('passenger-type').textContent = 
+                currentTicket.passengerType === "regular" ? "No Discount" : 
+                currentTicket.passengerType.charAt(0).toUpperCase() + currentTicket.passengerType.slice(1);
+        }
+
+        // Save receipt to text file
+        function saveReceipt() {
+            const now = new Date();
+            const formattedDate = `${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}-${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+            
+            const receiptText = `SANTRANS CORPORATION\n` +
+                               `Serial#: MP071455 BUS#: 179100\n` +
+                               `OFFICIAL RECEIPT\n\n` +
+                               `DATE & TIME: ${formattedDate}\n` +
+                               `From: ${currentTicket.from}\n` +
+                               `To: ${currentTicket.to}\n` +
+                               `Regular Fare: ₱${currentTicket.regularFare.toFixed(2)}\n` +
+                               `Discount: ₱${currentTicket.discount.toFixed(2)} (${currentTicket.passengerType === "regular" ? "No Discount" : currentTicket.passengerType.charAt(0).toUpperCase() + currentTicket.passengerType.slice(1)})\n` +
+                               `AMOUNT: ₱${currentTicket.finalFare.toFixed(2)} ${currentTicket.paymentMethod}\n\n` +
+                               `THIS SERVES AS AN OFFICIAL RECEIPT`;
+            
+            // Create a blob and download it
+            const blob = new Blob([receiptText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'receipt.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Save conductor report
+        function saveConductorReport() {
+            const now = new Date();
+            const formattedDate = `${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}-${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+            
+            const reportText = `SANTRANS CORPORATION - CONDUCTOR REPORT\n` +
+                               `Serial#: MP071455 BUS#: 179100\n\n` +
+                               `DATE & TIME: ${formattedDate}\n\n` +
+                               `TOTAL TICKETED PASSENGER: ${stats.regularPassengers + stats.studentPassengers + stats.seniorPassengers}\n` +
+                               `REGULAR PASSENGER: ${stats.regularPassengers}\n` +
+                               `STUDENT PASSENGER: ${stats.studentPassengers}\n` +
+                               `SENIOR CITIZEN PASSENGER: ${stats.seniorPassengers}\n` +
+                               `TOTAL COLLECTED PAYMENTS: ₱${stats.totalPayments.toFixed(2)}\n` +
+                               `CASHLESS METHOD (GCash): ₱${stats.cashlessPayments.toFixed(2)}\n` +
+                               `CASH: ₱${stats.cashPayments.toFixed(2)}\n`;
+            
+            // Create a blob and download it
+            const blob = new Blob([reportText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'conductor_report.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Event Listeners
+        document.getElementById('start-btn').addEventListener('click', () => {
+            showPage('route');
+        });
+
+        document.getElementById('conductor-btn').addEventListener('click', () => {
+            updateStatsDisplay();
+            showPage('conductor');
+        });
+
+        document.getElementById('back-from-route').addEventListener('click', () => {
+            showPage('home');
+        });
+
+        document.getElementById('back-from-passenger').addEventListener('click', () => {
+            showPage('route');
+        });
+
+        document.getElementById('back-from-ticket').addEventListener('click', () => {
+            showPage('passenger');
+        });
+
+        document.getElementById('back-from-print').addEventListener('click', () => {
+            showPage('ticket');
+        });
+
+        document.getElementById('back-from-conductor').addEventListener('click', () => {
+            showPage('home');
+        });
+
+        // Route buttons
+        document.querySelectorAll('.route-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentTicket.from = this.dataset.from;
+                currentTicket.to = this.dataset.to;
+                document.getElementById('from-display').textContent = `${currentTicket.from} (Terminal)`;
+                document.getElementById('to-display').textContent = currentTicket.to;
+                document.getElementById('ticket-from').textContent = currentTicket.from;
+                document.getElementById('ticket-to').textContent = currentTicket.to;
+                showPage('passenger');
+            });
+        });
+
+        // Passenger type buttons
+        document.getElementById('regular-btn').addEventListener('click', () => {
+            currentTicket.passengerType = "regular";
+            calculateFare();
+            showPage('ticket');
+        });
+
+        document.getElementById('student-btn').addEventListener('click', () => {
+            currentTicket.passengerType = "student";
+            calculateFare();
+            showPage('ticket');
+        });
+
+        document.getElementById('senior-btn').addEventListener('click', () => {
+            currentTicket.passengerType = "senior";
+            calculateFare();
+            showPage('ticket');
+        });
+
+        // Payment method buttons
+        document.getElementById('gcash-btn').addEventListener('click', () => {
+            currentTicket.paymentMethod = "GCash";
+            stats.cashlessPayments += currentTicket.finalFare;
+            stats.totalPayments += currentTicket.finalFare;
+            showPage('print');
+        });
+
+        document.getElementById('cash-btn').addEventListener('click', () => {
+            currentTicket.paymentMethod = "CASH";
+            stats.cashPayments += currentTicket.finalFare;
+            stats.totalPayments += currentTicket.finalFare;
+            showPage('print');
+        });
+
+        // Print buttons
+        document.getElementById('print-btn').addEventListener('click', () => {
+            saveReceipt();
+            alert('Ticket printed and saved!');
+            showPage('home');
+        });
+
+        document.getElementById('textfile-btn').addEventListener('click', () => {
+            saveReceipt();
+            alert('Receipt saved to text file!');
+            showPage('home');
+        });
+
+        document.getElementById('print-report-btn').addEventListener('click', () => {
+            saveConductorReport();
+            alert('Conductor report printed!');
+        });
+
+        // Update passenger count when ticket is completed
+        document.getElementById('print-btn').addEventListener('click', updatePassengerCount);
+        document.getElementById('textfile-btn').addEventListener('click', updatePassengerCount);
+
+        function updatePassengerCount() {
+            if (currentTicket.passengerType === "regular") {
+                stats.regularPassengers++;
+            } else if (currentTicket.passengerType === "student") {
+                stats.studentPassengers++;
+            } else if (currentTicket.passengerType === "senior") {
+                stats.seniorPassengers++;
+            }
+        }
+
+        // Initialize
+        updateDateTime();
+        showPage('home');
+    </script>
+</body>
+</html>

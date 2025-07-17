@@ -1,0 +1,409 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('BGBus.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for better content visibility */
+    min-height: 100vh;
+    padding: 20px; /* Add some padding around the content */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.main-wrapper {
+    width: 100%;
+    max-width: 600px; /* Increased max-width for better display on larger screens */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.app-header {
+    background-color: rgb(255, 239, 137); /* Light yellow background from example */
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.app-header .header-logo {
+    width: 90px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.header-text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+    color: #0066cc;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.app-header .header-tagline {
+    margin: 2px 0;
+    font-size: 15px;
+    font-style: italic;
+    color: #666;
+}
+
+.container {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header-sub {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.header-sub h2 {
+    font-size: 24px;
+    margin: 5px 0;
+    color: #0066cc;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.input-group input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-sizing: border-box;
+}
+
+.btn:hover {
+    background-color: #0055aa;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Updated GCash button styling for centering */
+.gcash-payment-btn {
+    background-color: transparent !important;
+    border: 2px solid #000080;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Changed from flex-start to center */
+    padding: 15px; /* Adjust padding to ensure it still looks good */
+}
+
+.gcash-payment-btn:hover {
+    background-color: rgba(0, 0, 128, 0.1) !important;
+    border-color: #000080;
+}
+
+.gcash-payment-btn .button-logo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.info-item {
+    margin: 15px 0;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.info-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #0066cc;
+}
+
+.payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 15px 0;
+    justify-content: center; /* This centers the buttons within their container */
+}
+
+.payment-methods .btn {
+    flex: 1 1 calc(50% - 15px);
+    min-width: 150px;
+}
+
+.hidden {
+    display: none;
+}
+
+.page {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.scrollable {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.scrollable h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #0066cc;
+    font-size: 1.2em;
+}
+
+.total-fare {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #d9534f;
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+}
+
+/* Receipt Notification */
+.receipt-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    animation: slideInUp 0.5s forwards, fadeOut 1s 2.5s forwards;
+}
+
+.receipt-notification.hidden {
+    display: none;
+}
+
+.notification-icon {
+    background-color: white;
+    color: #4CAF50;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translate(-50%, 100px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* QR Code Page Styling */
+.qr-code-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.gcash-qr-image {
+    max-width: 80%; /* Make it large but fit within the container */
+    height: auto;
+    border: 2px solid #000; /* Optional: border for visibility */
+    border-radius: 5px;
+}
+
+/* GCash Logo Footer */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.gcash-logo {
+    width: 100px;
+    height: auto;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-wrapper {
+        padding: 0;
+        gap: 15px;
+    }
+
+    .app-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: left;
+        padding: 10px;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .app-header .header-logo {
+        width: 70px;
+    }
+
+    .app-header h1 {
+        font-size: 26px;
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .app-header .header-tagline {
+        font-size: 13px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-text-content {
+        align-items: center;
+        width: calc(100% - 80px);
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .header-sub h2 {
+        font-size: 20px;
+    }
+
+    .input-group input[type="text"] {
+        width: calc(100% - 16px);
+        padding: 10px 8px;
+        font-size: 1em;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .payment-methods {
+        gap: 10px;
+    }
+
+    .payment-methods .btn {
+        flex: 1 1 100%;
+    }
+
+    .info-item {
+        font-size: 1em;
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .scrollable {
+        max-height: 40vh;
+        padding-right: 5px;
+    }
+
+    .scrollable h3 {
+        font-size: 1.1em;
+    }
+
+    .receipt-notification {
+        width: calc(100% - 40px);
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 1em;
+        bottom: 20px;
+    }
+
+    .gcash-logo {
+        width: 80px;
+    }
+
+    .gcash-qr-image {
+        max-width: 95%; /* Adjust for smaller screens */
+    }
+}

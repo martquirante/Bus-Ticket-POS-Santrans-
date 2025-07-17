@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTRANS CORPORATION TICKET SYSTEM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="main-wrapper">
+        <header class="app-header">
+            <img src="SantransLogo.png" alt="Santrans Logo" class="header-logo">
+            <div class="header-text-content">
+                <h1>SANTRANS CORPORATION</h1>
+                <p class="header-tagline" id="display-bus-number">BUS #: Loading...</p>
+                <p class="header-tagline" id="display-serial-number">SERIAL #: MP071455</p>
+                <p class="header-tagline" id="display-driver-name">DRIVER: Loading...</p>
+                <p class="header-tagline" id="display-conductor-name">CONDUCTOR: Loading...</p>
+            </div>
+        </header>
+
+        <div class="container">
+            <div id="home-page" class="page">
+                <div class="header-sub">
+                    <h2>WELCOME!</h2>
+                    <p id="date-time-display">DATE & TIME: Loading...</p>
+                </div>
+                <div class="input-group">
+                    <label for="bus-number-input">Enter Bus Number:</label>
+                    <input type="text" id="bus-number-input" placeholder="e.g., 56852">
+                </div>
+                <div class="input-group">
+                    <label for="driver-name-input">Driver's Name:</label>
+                    <input type="text" id="driver-name-input" placeholder="e.g., Juan Cruz">
+                </div>
+                <div class="input-group">
+                    <label for="conductor-name-input">Conductor's Name:</label>
+                    <input type="text" id="conductor-name-input" placeholder="e.g., Tamad Dela Cruz">
+                </div>
+                <button id="proceed-home-btn" class="btn">PROCEED</button>
+                <button id="conductor-btn" class="btn btn-secondary">CONDUCTOR MENU</button>
+            </div>
+
+            <div id="route-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>SELECT ROUTE</h2>
+                    <p id="from-display">From: Loading...</p>
+                    <p id="to-display">To: Loading...</p>
+                </div>
+                <div id="route-buttons-container" class="scrollable">
+                    </div>
+                <button id="back-from-route" class="btn btn-secondary">BACK</button>
+            </div>
+
+            <div id="passenger-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>SELECT PASSENGER TYPE</h2>
+                </div>
+                <button id="regular-btn" class="btn">REGULAR</button>
+                <button id="student-btn" class="btn">STUDENT</button>
+                <button id="senior-btn" class="btn">SENIOR CITIZEN</button>
+                <button id="back-from-passenger" class="btn btn-secondary">BACK</button>
+            </div>
+
+            <div id="ticket-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>TICKET DETAILS</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Bus No.:</span> <span id="ticket-bus-number">Loading...</span><br>
+                    <span class="info-label">From:</span> <span id="ticket-from">Loading...</span><br>
+                    <span class="info-label">To:</span> <span id="ticket-to">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Passenger Type:</span> <span id="passenger-type-display">Loading...</span><br>
+                    <span class="info-label">Regular Fare:</span> ₱<span id="regular-fare">0.00</span><br>
+                    <span class="info-label">Discount:</span> ₱<span id="discount">0.00</span>
+                </div>
+                <div class="total-fare">
+                    TOTAL AMOUNT: ₱<span id="final-fare">0.00</span>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <p>PAYMENT METHOD?</p>
+                    <div class="payment-methods">
+                        <button id="gcash-btn" class="btn gcash-payment-btn">
+                            <img src="GCashLogog.png" alt="GCash Logo" class="button-logo">
+                            GCash
+                        </button>
+                        <button id="cash-btn" class="btn">CASH</button>
+                    </div>
+                </div>
+                <button id="back-from-ticket" class="btn btn-secondary">BACK</button>
+            </div>
+
+            <div id="qrcode-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>SCAN GCASH QR CODE</h2>
+                    <p>Please scan the QR code to complete your payment.</p>
+                </div>
+                <div class="qr-code-container">
+                    <img src="QRcode.jpg" alt="GCash QR Code" class="gcash-qr-image">
+                </div>
+                <button id="proceed-qrcode-btn" class="btn">PRINT TICKET</button>
+                </div>
+
+            <div id="conductor-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>CONDUCTOR'S REPORT</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">TOTAL TICKETED PASSENGER:</span> <span id="total-passengers">0</span><br>
+                    <span class="info-label">REGULAR PASSENGER:</span> <span id="regular-passengers">0</span><br>
+                    <span class="info-label">STUDENT PASSENGER:</span> <span id="student-passengers">0</span><br>
+                    <span class="info-label">SENIOR CITIZEN PASSENGER:</span> <span id="senior-passengers">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">TOTAL COLLECTED PAYMENTS:</span> ₱<span id="total-payments">0.00</span><br>
+                    <span class="info-label">CASHLESS METHOD (GCash):</span> ₱<span id="cashless-payments">0.00</span><br>
+                    <span class="info-label">CASH:</span> ₱<span id="cash-payments">0.00</span>
+                </div>
+                <button id="print-report-btn" class="btn">PRINT REPORT</button>
+                <button id="back-from-conductor" class="btn btn-secondary">BACK</button>
+            </div>
+        </div>
+
+        <div id="receipt-notification" class="receipt-notification hidden">
+            <span class="notification-icon"><i class="fas fa-check"></i></span>
+            <span id="notification-message">Receipt Saved!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
