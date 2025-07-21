@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiptNotification = document.getElementById('receipt-notification');
     const notificationMessage = document.getElementById('notification-message');
     const proceedQrCodeBtn = document.getElementById('proceed-qrcode-btn');
+    const clearDataBtn = document.getElementById('clear-data-btn'); // NEW: Get the clear data button
 
     // --- Functions ---
 
@@ -194,6 +195,23 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function saveStats() {
         localStorage.setItem('conductorStats', JSON.stringify(stats));
+    }
+
+    /**
+     * Resets all conductor statistics to zero and updates Local Storage.
+     */
+    function clearStats() {
+        stats = {
+            regularPassengers: 0,
+            studentPassengers: 0,
+            seniorPassengers: 0,
+            totalPayments: 0,
+            cashlessPayments: 0,
+            cashPayments: 0
+        };
+        saveStats(); // Save cleared stats
+        updateStatsDisplay(); // Update display
+        showNotification('Conductor data cleared!');
     }
 
     /**
@@ -474,6 +492,14 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage('conductor');
     });
 
+    // NEW: Clear Data Button in Conductor Menu
+    clearDataBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to clear all conductor data? This action cannot be undone.')) {
+            clearStats();
+        }
+    });
+
+
     // Back Buttons
     document.getElementById('back-from-route').addEventListener('click', () => {
         showPage('home'); // Still go back to home from route if needed
@@ -521,6 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // REMOVED: Automatic timeout for QR code page
         // qrCodeTimer = setTimeout(() => {
         //     completePaymentFlow();
+        // }, 7000); // 7-second delay for scanning QR code
     });
 
     // Manual proceed button on QR Code page
