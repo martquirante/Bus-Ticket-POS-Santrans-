@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiptNotification = document.getElementById('receipt-notification');
     const notificationMessage = document.getElementById('notification-message');
     const proceedQrCodeBtn = document.getElementById('proceed-qrcode-btn');
-    const clearDataBtn = document.getElementById('clear-data-btn'); // Get the clear data button
+    const clearDataBtn = document.getElementById('clear-data-btn'); // NEW: Get the clear data button
 
     // --- Functions ---
 
@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage('conductor');
     });
 
-    // Clear Data Button in Conductor Menu
+    // NEW: Clear Data Button in Conductor Menu
     clearDataBtn.addEventListener('click', () => {
         if (confirm('Are you sure you want to clear all conductor data? This action cannot be undone.')) {
             clearStats();
@@ -511,11 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('back-from-ticket').addEventListener('click', () => {
         showPage('passenger');
-    });
-
-    // NEW: Back button from QR code page to Ticket Details page
-    document.getElementById('back-from-qrcode').addEventListener('click', () => {
-        showPage('ticket'); 
     });
 
     document.getElementById('back-from-conductor').addEventListener('click', () => {

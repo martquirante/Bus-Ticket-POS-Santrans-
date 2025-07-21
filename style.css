@@ -176,19 +176,6 @@ body {
     color: #0066cc;
 }
 
-/* Add this to your existing style.css file */
-
-.btn-danger {
-    background-color: #dc3545; /* Bootstrap's 'danger' red */
-    color: #ffffff; /* White text */
-    border: 1px solid #dc3545;
-}
-
-.btn-danger:hover {
-    background-color: #c82333; /* Slightly darker red on hover */
-    border-color: #bd2130;
-}
-
 .payment-methods {
     display: flex;
     flex-wrap: wrap;
@@ -304,6 +291,19 @@ body {
     height: auto;
     border: 2px solid #000; /* Optional: border for visibility */
     border-radius: 5px;
+}
+
+/* GCash Logo Footer */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.gcash-logo {
+    width: 100px;
+    height: auto;
+    opacity: 0.8;
 }
 
 /* Responsive Design */
