@@ -138,6 +138,19 @@ body {
     background-color: #5a6268;
 }
 
+/* --- Start of NEW CODE for Red Button --- */
+.btn-danger {
+    background-color: #dc3545; /* Standard red */
+    color: #ffffff; /* White text */
+    border: 1px solid #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Darker red on hover */
+    border-color: #bd2130;
+}
+/* --- End of NEW CODE for Red Button --- */
+
 /* Updated GCash button styling for centering */
 .gcash-payment-btn {
     background-color: transparent !important;

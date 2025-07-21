@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "MUZON": { // New routes
             "ST. CRUZ": 75.0,
-            "AYALA MALLS": 68.0 // Assuming Ayala Malls (Balintawak) is just Ayala Malls for this context
+            "AYALA MALLS": 68.0 // Assuming Ayala Malls (Balintawak) is just Ayala Malls for MUZON -> Ayala Malls
         },
         "CENTRAL": { // New route
             "BALINTAWAK": 75.0
@@ -125,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayBusNumberHeader = document.getElementById('display-bus-number');
     const displayDriverNameHeader = document.getElementById('display-driver-name');
     const displayConductorNameHeader = document.getElementById('display-conductor-name');
+    // From/To displays now in the header, their IDs are still the same
+    const fromDisplayHeader = document.getElementById('from-display');
+    const toDisplayHeader = document.getElementById('to-display');
+
 
     const ticketBusNumberDisplay = document.getElementById('ticket-bus-number');
     const routeButtonsContainer = document.getElementById('route-buttons-container');
@@ -252,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (originFares) {
             let targetDestination = currentTicket.to;
+            // Handle specific cases where 'to' name might differ in fares object
             if (currentTicket.from === "MUZON" && currentTicket.to === "AYALA MALLS (BALINTAWAK)") {
                 targetDestination = "AYALA MALLS";
             } else if (currentTicket.from === "SAN JOSE" && currentTicket.to === "AYALA MALLS (BALINTAWAK)") {
@@ -311,8 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', function() {
                 currentTicket.from = this.dataset.from;
                 currentTicket.to = this.dataset.to;
-                document.getElementById('from-display').textContent = currentTicket.from;
-                document.getElementById('to-display').textContent = currentTicket.to;
+                // Update header display for From/To
+                fromDisplayHeader.textContent = `From: ${currentTicket.from}`;
+                toDisplayHeader.textContent = `To: ${currentTicket.to}`;
+                // Update ticket page fields
                 document.getElementById('ticket-from').textContent = currentTicket.from;
                 document.getElementById('ticket-to').textContent = currentTicket.to;
                 showPage('passenger');
@@ -476,6 +483,10 @@ document.addEventListener('DOMContentLoaded', () => {
             displayDriverNameHeader.textContent = `DRIVER: ${driverName}`;
             displayConductorNameHeader.textContent = `CONDUCTOR: ${conductorName}`;
             
+            // Reset From/To display in header to "Loading..." when starting new transaction
+            fromDisplayHeader.textContent = `From: Loading...`;
+            toDisplayHeader.textContent = `To: Loading...`;
+            
             // Only bus number is needed for ticket details initially, driver/conductor is for receipt
             ticketBusNumberDisplay.textContent = `BUS #: ${busNumber}`; 
             
@@ -513,6 +524,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage('passenger');
     });
 
+    // NEW: Back from QR Code page
+    document.getElementById('back-from-qrcode').addEventListener('click', () => {
+        // If there's an ongoing QR code timer, clear it when going back
+        if (qrCodeTimer) {
+            clearTimeout(qrCodeTimer);
+        }
+        showPage('ticket'); // Go back to the ticket page
+    });
+
     document.getElementById('back-from-conductor').addEventListener('click', () => {
         showPage('home');
     });
@@ -544,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show QR code page
         showPage('qrcode');
 
-        // REMOVED: Automatic timeout for QR code page
+        // REMOVED: Automatic timeout for QR code page (as per previous request)
         // qrCodeTimer = setTimeout(() => {
         //     completePaymentFlow();
         // }, 7000); // 7-second delay for scanning QR code
