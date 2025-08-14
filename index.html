@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SANTRANS CORPORATION TICKET SYSTEM</title>
+    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para sa mga icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="main-wrapper">
+
+        <!-- ====== HEADER AREA ====== -->
+        <!-- Dito nakalagay ang logo, pangalan ng company, at bus/conductor info -->
         <header class="app-header">
             <img src="SantransLogo.png" alt="Santrans Logo" class="header-logo">
             <div class="header-text-content">
@@ -21,14 +26,17 @@
         </header>
 
         <div class="container">
+
+            <!-- ====== HOME PAGE ====== -->
+            <!-- Input para sa Bus No., Driver Name, Conductor Name -->
             <div id="home-page" class="page">
                 <div class="header-sub">
                     <h2>WELCOME!</h2>
                     <p id="date-time-display">DATE & TIME: Loading...</p>
                 </div>
-                <div class="input-group">
-                    <label for="bus-number-input">Enter Bus Number:</label>
-                    <input type="text" id="bus-number-input" placeholder="e.g., 56852">
+                <div class="input-group bus-no-input">
+                    <label for="bus-no-input">Bus No.:</label>
+                    <input type="number" id="bus-no-input" placeholder="Enter Bus No.">
                 </div>
                 <div class="input-group">
                     <label for="driver-name-input">Driver's Name:</label>
@@ -39,31 +47,56 @@
                     <input type="text" id="conductor-name-input" placeholder="e.g., Tamad Dela Cruz">
                 </div>
                 <button id="proceed-home-btn" class="btn">PROCEED</button>
-                <button id="conductor-btn" class="btn btn-secondary">CONDUCTOR MENU</button>
+                <button id="conductor-menu-home-btn" class="btn btn-conductor-menu">CONDUCTOR MENU</button>
             </div>
 
-            <div id="route-page" class="page hidden">
+            <!-- ====== ROUTE DIRECTION SELECTION ====== -->
+            <!-- Pipili kung anong direksyon ng biyahe -->
+            <div id="selection-loop-page" class="page hidden">
                 <div class="header-sub">
-                    <h2>SELECT ROUTE</h2>
-                    <h5><em>Your Previous Selected Route</em></h5>
-                    <p id="from-display">From: Loading...</p>
-                    <p id="to-display">To: Loading...</p>
+                    <h2>SELECTION LOOP</h2>
                 </div>
-                <div id="route-buttons-container" class="scrollable">
+                <p>Please select your route direction.</p>
+                <div class="button-group">
+                    <!-- Format gagawin sa JS: FROM FVR: FVR to ST.CRUZ (Terminal) -->
+                    <button id="fvr-to-stcruz-btn" class="btn">FVR to ST.CRUZ (Terminal)</button>
+                    <button id="stcruz-to-fvr-btn" class="btn">ST.CRUZ to FVR (Terminal)</button>
                 </div>
-                <button id="back-from-route" class="btn btn-secondary">BACK</button>
+                <button id="conductor-menu-main-btn" class="btn btn-conductor-menu">CONDUCTOR MENU</button>
+                <button id="back-from-loop" class="btn btn-back">BACK</button>
             </div>
 
+            <!-- ====== ROUTE LIST PAGE ====== -->
+            <!-- Lahat ng routes from selected origin -->
+            <div id="selection-route-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>SELECTION ROUTE</h2>
+                </div>
+                <div id="route-buttons-container" class="scrollable"></div>
+                <button id="back-from-sub-route" class="btn btn-back">BACK</button>
+            </div>
+            
+            <!-- ====== PASSENGER TYPE SELECTION ====== -->
             <div id="passenger-page" class="page hidden">
                 <div class="header-sub">
                     <h2>SELECT PASSENGER TYPE</h2>
+                    <p id="prev-from-display">From: Loading...</p>
+                    <p id="prev-to-display">To: Loading...</p>
                 </div>
+                <div class="input-group">
+                    <label for="passenger-count-input">No. of Passengers:</label>
+                    <!-- Wala nang default value, may placeholder na lang -->
+                    <input type="number" id="passenger-count-input" placeholder="Enter how many Passenger in this Route?" min="1" class="small-input">
+                </div>
+                <!-- Passenger type buttons -->
                 <button id="regular-btn" class="btn">REGULAR</button>
                 <button id="student-btn" class="btn">STUDENT</button>
                 <button id="senior-btn" class="btn">SENIOR CITIZEN</button>
-                <button id="back-from-passenger" class="btn btn-secondary">BACK</button>
+                <button id="back-from-passenger" class="btn btn-back">BACK</button>
             </div>
 
+            <!-- ====== TICKET PAGE ====== -->
+            <!-- Detalye ng ticket at pagpili ng payment method -->
             <div id="ticket-page" class="page hidden">
                 <div class="header-sub">
                     <h2>TICKET DETAILS</h2>
@@ -73,6 +106,7 @@
                     <span class="info-label">From:</span> <span id="ticket-from">Loading...</span><br>
                     <span class="info-label">To:</span> <span id="ticket-to">Loading...</span>
                 </div>
+                <div id="ticket-summary-container"></div>
                 <div class="info-item">
                     <span class="info-label">Passenger Type:</span> <span id="passenger-type-display">Loading...</span><br>
                     <span class="info-label">Regular Fare:</span> ₱<span id="regular-fare">0.00</span><br>
@@ -92,9 +126,10 @@
                         <button id="cash-btn" class="btn">CASH</button>
                     </div>
                 </div>
-                <button id="back-from-ticket" class="btn btn-secondary">BACK</button>
+                <button id="back-from-ticket" class="btn btn-back">BACK</button>
             </div>
 
+            <!-- ====== GCASH QR PAGE ====== -->
             <div id="qrcode-page" class="page hidden">
                 <div class="header-sub">
                     <h2>SCAN GCASH QR CODE</h2>
@@ -104,36 +139,71 @@
                     <img src="QRcode.jpg" alt="GCash QR Code" class="gcash-qr-image">
                 </div>
                 <button id="proceed-qrcode-btn" class="btn">PRINT TICKET</button>
-                <button id="back-from-qrcode" class="btn btn-secondary">BACK</button>
-                </div>
+                <button id="back-from-qrcode" class="btn btn-back">BACK</button>
+            </div>
 
-            <div id="conductor-page" class="page hidden">
+            <!-- ====== CONDUCTOR REPORT (HOME) ====== -->
+            <div id="conductor-page-home" class="page hidden">
                 <div class="header-sub">
                     <h2>CONDUCTOR'S REPORT</h2>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">TOTAL TICKETED PASSENGER:</span> <span id="total-passengers">0</span><br>
-                    <span class="info-label">REGULAR PASSENGER:</span> <span id="regular-passengers">0</span><br>
-                    <span class="info-label">STUDENT PASSENGER:</span> <span id="student-passengers">0</span><br>
-                    <span class="info-label">SENIOR CITIZEN PASSENGER:</span> <span id="senior-passengers">0</span>
+                    <span class="info-label">TOTAL TICKETED PASSENGER:</span> <span id="total-passengers-home">0</span><br>
+                    <span class="info-label">REGULAR PASSENGER:</span> <span id="regular-passengers-home">0</span><br>
+                    <span class="info-label">STUDENT PASSENGER:</span> <span id="student-passengers-home">0</span><br>
+                    <span class="info-label">SENIOR CITIZEN PASSENGER:</span> <span id="senior-passengers-home">0</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">TOTAL COLLECTED PAYMENTS:</span> ₱<span id="total-payments">0.00</span><br>
-                    <span class="info-label">CASHLESS METHOD (GCash):</span> ₱<span id="cashless-payments">0.00</span><br>
-                    <span class="info-label">CASH:</span> ₱<span id="cash-payments">0.00</span>
+                    <span class="info-label">TOTAL COLLECTED PAYMENTS:</span> ₱<span id="total-payments-home">0.00</span><br>
+                    <span class="info-label">CASHLESS METHOD (GCash):</span> ₱<span id="cashless-payments-home">0.00</span><br>
+                    <span class="info-label">CASH:</span> ₱<span id="cash-payments-home">0.00</span>
                 </div>
-                <button id="print-report-btn" class="btn">PRINT REPORT</button>
-                <button id="clear-data-btn" class="btn btn-danger">CLEAR DATA</button>
-                <button id="back-from-conductor" class="btn btn-secondary">BACK</button>
+                <button id="print-report-home-btn" class="btn btn-print-report">PRINT REPORT</button>
+                <button id="view-fare-data-home-btn" class="btn btn-fare-collection">DATA FARE COLLECTED</button>
+                <button id="clear-data-btn" class="btn">CLEAR DATA</button>
+                <button id="back-from-conductor-home" class="btn btn-back">BACK</button>
+            </div>
+            
+            <!-- ====== CONDUCTOR REPORT (ROUTE) ====== -->
+            <div id="conductor-page-route" class="page hidden">
+                <div class="header-sub">
+                    <h2>CONDUCTOR'S REPORT</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">TOTAL TICKETED PASSENGER:</span> <span id="total-passengers-route">0</span><br>
+                    <span class="info-label">REGULAR PASSENGER:</span> <span id="regular-passengers-route">0</span><br>
+                    <span class="info-label">STUDENT PASSENGER:</span> <span id="student-passengers-route">0</span><br>
+                    <span class="info-label">SENIOR CITIZEN PASSENGER:</span> <span id="senior-passengers-route">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">TOTAL COLLECTED PAYMENTS:</span> ₱<span id="total-payments-route">0.00</span><br>
+                    <span class="info-label">CASHLESS METHOD (GCash):</span> ₱<span id="cashless-payments-route">0.00</span><br>
+                    <span class="info-label">CASH:</span> ₱<span id="cash-payments-route">0.00</span>
+                </div>
+                <button id="print-report-route-btn" class="btn btn-print-report">PRINT REPORT</button>
+                <button id="view-fare-data-route-btn" class="btn btn-fare-collection">DATA FARE COLLECTED</button>
+                <button id="back-from-conductor-route" class="btn btn-back">BACK</button>
+            </div>  
+            
+            <!-- ====== FARE DATA PAGE ====== -->
+            <div id="fare-data-page" class="page hidden">
+                <div class="header-sub">
+                    <h2>DATA FARE COLLECTED</h2>
+                </div>
+                <div id="fare-data-list" class="scrollable"></div>
+                <button id="export-excel-btn" class="btn">EXPORT TO EXCEL</button>
+                <button id="back-from-fare-data" class="btn btn-back">BACK</button>
             </div>
         </div>
 
+        <!-- Notification Toast -->
         <div id="receipt-notification" class="receipt-notification hidden">
             <span class="notification-icon"><i class="fas fa-check"></i></span>
             <span id="notification-message">Receipt Saved!</span>
         </div>
     </div>
 
+    <!-- Main JS -->
     <script src="script.js"></script>
 </body>
 </html>

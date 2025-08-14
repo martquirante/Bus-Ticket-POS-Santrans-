@@ -7,23 +7,24 @@ body {
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align to top for better content visibility */
+    align-items: flex-start;
     min-height: 100vh;
-    padding: 20px; /* Add some padding around the content */
-    box-sizing: border-box; /* Include padding in element's total width and height */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .main-wrapper {
     width: 100%;
-    max-width: 600px; /* Increased max-width for better display on larger screens */
+    max-width: 600px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+/* Binago ang style na ito para sa left-aligned na logo at centered na text */
 .app-header {
-    background-color: rgb(255, 239, 137); /* Light yellow background from example */
+    background-color: rgb(255, 239, 137);
     color: #333;
     padding: 15px 20px;
     border-radius: 10px;
@@ -32,6 +33,8 @@ body {
     align-items: center;
     gap: 20px;
     margin-bottom: 20px;
+    /* Inalis ang flex-direction: column; para maging horizontal ang layout */
+    justify-content: flex-start; /* Ito ang naglalagay ng content sa kaliwa */
 }
 
 .app-header .header-logo {
@@ -45,7 +48,7 @@ body {
     flex-direction: column;
     justify-content: center;
     flex-grow: 1;
-    text-align: left;
+    text-align: center; /* Inayos para ang text ay naka-center */
 }
 
 .app-header h1 {
@@ -85,6 +88,7 @@ body {
     color: #0066cc;
 }
 
+/* Updated inputs section */
 .input-group {
     margin-bottom: 20px;
     text-align: center;
@@ -97,13 +101,32 @@ body {
     font-weight: bold;
 }
 
-.input-group input[type="text"] {
+.input-group input[type="text"],
+.input-group input[type="number"] {
     width: calc(100% - 20px);
     padding: 12px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1.1em;
     box-sizing: border-box;
+    text-align: left;
+}
+
+#passenger-count-input {
+    width: 60px;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+#passenger-count-input::-webkit-outer-spin-button,
+#passenger-count-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .btn {
@@ -117,7 +140,7 @@ body {
     border-radius: 5px;
     font-size: 18px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
     box-sizing: border-box;
 }
 
@@ -132,39 +155,62 @@ body {
 
 .btn-secondary {
     background-color: #6c757d;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .btn-secondary:hover {
     background-color: #5a6268;
+    transform: translateY(-2px);
 }
 
-/* --- Start of NEW CODE for Red Button --- */
 .btn-danger {
-    background-color: #dc3545; /* Standard red */
-    color: #ffffff; /* White text */
+    background-color: #dc3545;
+    color: #ffffff;
     border: 1px solid #dc3545;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s;
 }
 
 .btn-danger:hover {
-    background-color: #c82333; /* Darker red on hover */
+    background-color: #c82333;
     border-color: #bd2130;
+    transform: translateY(-2px);
 }
-/* --- End of NEW CODE for Red Button --- */
 
-/* Updated GCash button styling for centering */
+.btn-green {
+    background-color: #28a745;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-green:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-orange {
+    background-color: #fd7e14;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-orange:hover {
+    background-color: #e8720e;
+    transform: translateY(-2px);
+}
+
 .gcash-payment-btn {
     background-color: transparent !important;
     border: 2px solid #000080;
     color: #333;
     display: flex;
     align-items: center;
-    justify-content: center; /* Changed from flex-start to center */
-    padding: 15px; /* Adjust padding to ensure it still looks good */
+    justify-content: center;
+    padding: 15px;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s;
 }
 
 .gcash-payment-btn:hover {
     background-color: rgba(0, 0, 128, 0.1) !important;
     border-color: #000080;
+    transform: translateY(-2px);
 }
 
 .gcash-payment-btn .button-logo {
@@ -194,7 +240,7 @@ body {
     flex-wrap: wrap;
     gap: 15px;
     margin: 15px 0;
-    justify-content: center; /* This centers the buttons within their container */
+    justify-content: center;
 }
 
 .payment-methods .btn {
@@ -300,9 +346,9 @@ body {
 }
 
 .gcash-qr-image {
-    max-width: 80%; /* Make it large but fit within the container */
+    max-width: 80%;
     height: auto;
-    border: 2px solid #000; /* Optional: border for visibility */
+    border: 2px solid #000;
     border-radius: 5px;
 }
 
@@ -324,12 +370,10 @@ body {
     body {
         padding: 10px;
     }
-
     .main-wrapper {
         padding: 0;
         gap: 15px;
     }
-
     .app-header {
         flex-direction: row;
         flex-wrap: wrap;
@@ -339,71 +383,63 @@ body {
         gap: 10px;
         margin-bottom: 15px;
     }
-
     .app-header .header-logo {
         width: 70px;
     }
-
     .app-header h1 {
         font-size: 26px;
         width: 100%;
         text-align: center;
         margin-top: 5px;
     }
-
     .app-header .header-tagline {
         font-size: 13px;
         width: 100%;
         text-align: center;
     }
-
     .header-text-content {
         align-items: center;
         width: calc(100% - 80px);
     }
-
     .container {
         padding: 15px;
     }
-
     .header-sub h2 {
         font-size: 20px;
     }
-
-    .input-group input[type="text"] {
+    .input-group input[type="text"],
+    .input-group input[type="number"] {
         width: calc(100% - 16px);
         padding: 10px 8px;
         font-size: 1em;
     }
-
+    #passenger-count-input {
+        width: 50px;
+        padding: 10px 8px;
+        font-size: 1em;
+    }
     .btn {
         padding: 12px;
         font-size: 16px;
     }
-
     .payment-methods {
         gap: 10px;
     }
-
     .payment-methods .btn {
         flex: 1 1 100%;
     }
-
     .info-item {
         font-size: 1em;
         margin: 10px 0;
         padding: 10px;
     }
-
     .scrollable {
         max-height: 40vh;
         padding-right: 5px;
     }
-
     .scrollable h3 {
         font-size: 1.1em;
     }
-
     .receipt-notification {
         width: calc(100% - 40px);
         text-align: center;
@@ -411,12 +447,140 @@ body {
         font-size: 1em;
         bottom: 20px;
     }
-
     .gcash-logo {
         width: 80px;
     }
-
     .gcash-qr-image {
-        max-width: 95%; /* Adjust for smaller screens */
+        max-width: 95%;
     }
+}
+
+/* --- User-requested Styles with Animations --- */
+.btn-conductor-menu {
+    background-color: transparent !important;
+    border: 2px solid #28a745 !important;
+    color: #28a745 !important;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
+}
+
+.btn-conductor-menu:hover {
+    background-color: #28a745 !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.btn-fare-collection {
+    background-color: transparent !important;
+    border: 2px solid #fd7e14 !important;
+    color: #fd7e14 !important;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
+}
+
+.btn-fare-collection:hover {
+    background-color: #fd7e14 !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+#clear-data-btn {
+    background-color: transparent !important;
+    border: 2px solid #dc3545 !important;
+    color: #dc3545 !important;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
+}
+
+#clear-data-btn:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.btn-print-report {
+    background-color: transparent !important;
+    border: 2px solid #0066cc !important;
+    color: #0066cc !important;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
+}
+
+.btn-print-report:hover {
+    background-color: #0066cc !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.btn-back {
+    background-color: transparent !important;
+    border: 2px solid #6c757d !important;
+    color: #6c757d !important;
+    transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #6c757d !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50; /* Green for success */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notification.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Red style for error messages */
+#error-notification {
+    background-color: #dc3545; /* Red for errors */
+}
+
+/* ====== NEW STYLES FOR LARGER ROUTE BUTTONS ====== */
+.route-btn {
+    width: 100%;
+    padding: 20px 15px;
+    margin: 12px 0;
+    font-size: 1.2em;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    display: block;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.route-btn:hover {
+    background-color: #0055aa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.route-buttons-container h3 {
+    font-size: 1.3em;
+    margin: 20px 0 10px 0;
+    color: #0066cc;
+    text-align: left;
+    padding-left: 5px;
+    border-bottom: 2px solid #0066cc;
+    padding-bottom: 5px;
+}
+
+/* Make the scrollable container for routes taller */
+#route-buttons-container.scrollable {
+    max-height: 60vh;
+    padding: 15px;
 }
