@@ -777,6 +777,7 @@ Total Collected Payments: ₱${stats.totalPayments.toFixed(2)}
     // Home page: Conductor Menu button
     document.getElementById('conductor-menu-home-btn')?.addEventListener('click', () => {
         // Save session data first
+       
         sessionData.busNumber = busNumberInput.value;
         sessionData.driverName = driverNameInput.value;
         sessionData.conductorName = conductorNameInput.value;
@@ -853,6 +854,10 @@ Total Collected Payments: ₱${stats.totalPayments.toFixed(2)}
     // Function to proceed to ticket page with validation
     function proceedToTicket() {
         const passengerCount = parseInt(passengerCountInput.value) || 0;
+
+        if (ticketBusNumberDisplay) {
+    ticketBusNumberDisplay.textContent = currentTicket.busNumber;
+}
         
         if (passengerCount <= 0 || isNaN(passengerCount)) {
             showNotification('Cannot enter a value of 0. Please enter a valid number of passengers.', 'error');
