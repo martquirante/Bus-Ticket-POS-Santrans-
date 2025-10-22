@@ -1,13 +1,7 @@
 /**
- * script.js
+ * script.js - FIXED VERSION
  * SANTRANS CORPORATION - Ticketing System
- * Updated with bug fixes for route selection
- *
- * Features:
- * - Fixed route selection buttons (FVR to ST.CRUZ and reverse)
- * - Passenger count validation
- * - Excel export
- * - All original functionality preserved
+ * Fixed navigation issues and added missing functionality
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -99,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { origin: 'SAPANG PALAY', destination: 'LACSON', fare: 85 },
             { origin: 'KAYPIAN', destination: 'MUZON', fare: 15 },
             { origin: 'KAYPIAN', destination: 'LUMA DE GATO', fare: 18 },
-            { origin: 'KAYPIAN', destination: 'FRENZA', fare: 20 },
+            { origin: 'KAYpiAN', destination: 'FRENZA', fare: 20 },
             { origin: 'KAYPIAN', destination: 'MARILAO EXIT', fare: 30 },
             { origin: 'KAYPIAN', destination: 'AYALA MALLS', fare: 70 },
             { origin: 'KAYPIAN', destination: 'BALINTAWAK', fare: 75 },
@@ -121,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { origin: 'MARILAO EXIT', destination: 'BALINTAWAK', fare: 30 },
             { origin: 'MARILAO EXIT', destination: 'AYALA MALLS', fare: 35 },
             { origin: 'MARILAO EXIT', destination: 'LACSON', fare: 40 },
-            { origin: 'MARILAO EXIT', destination: 'ST.CRUZ', fare: 45 }
+            { origin: 'MARILAO EXIT', destination: 'ST. CRUZ', fare: 45 }
         ],
         'ST.CRUZ to FVR': [
             { origin: 'ST. CRUZ', destination: 'MARILAO EXIT', fare: 30 },
@@ -226,10 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.values(pages).forEach(p => { if (p) p.classList.add('hidden'); });
         if (pages[pageId]) pages[pageId].classList.remove('hidden');
 
-        // When showing passenger page, show prev from/to (last selected)
+        // When showing passenger page, show the selected from/to values
         if (pageId === 'passenger') {
-            if (prevFromDisplay) prevFromDisplay.textContent = issuedTickets.length > 0 ? `From: ${issuedTickets[issuedTickets.length - 1].from}` : `From: N/A`;
-            if (prevToDisplay) prevToDisplay.textContent = issuedTickets.length > 0 ? `To: ${issuedTickets[issuedTickets.length - 1].to}` : `To: N/A`;
+            if (prevFromDisplay) prevFromDisplay.textContent = `From: ${currentTicket.from}`;
+            if (prevToDisplay) prevToDisplay.textContent = `To: ${currentTicket.to}`;
         }
         // Update stats when showing conductor pages
         if (pageId === 'conductorHome') updateStatsDisplay(true);
@@ -277,20 +271,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function saveStats() { localStorage.setItem('conductorStats', JSON.stringify(stats)); }
     function saveIssuedTickets() { localStorage.setItem('issuedTickets', JSON.stringify(issuedTickets)); }
 
+    // --- FEATURE: Binago ang function na ito para humingi ng passcode ---
     /**
      * Clear all conductor data (confirm first)
      */
     function clearAllData() {
-        if (confirm('Are you sure you want to clear ALL conductor data, including ticket history? This action cannot be undone.')) {
-            stats = { regularPassengers: 0, studentPassengers: 0, seniorPassengers: 0, totalPayments: 0, cashlessPayments: 0, cashPayments: 0, ticketCounter: 0 };
-            issuedTickets = [];
-            saveStats();
-            saveIssuedTickets();
-            updateStatsDisplay(true);
-            updateStatsDisplay(false);
-            showNotification('All conductor data cleared!');
+        const passcode = prompt('To clear all data, please enter the admin passcode:');
+        
+        if (passcode === null) {
+            // User clicked "Cancel"
+            return; 
+        }
+
+        if (passcode === "111111") {
+            // Correct passcode. Now, show the original confirmation.
+            if (confirm('Are you sure you want to clear ALL conductor data, including ticket history? This action cannot be undone.')) {
+                stats = { regularPassengers: 0, studentPassengers: 0, seniorPassengers: 0, totalPayments: 0, cashlessPayments: 0, cashPayments: 0, ticketCounter: 0 };
+                issuedTickets = [];
+                saveStats();
+                saveIssuedTickets();
+                updateStatsDisplay(true);
+                updateStatsDisplay(false);
+                showNotification('All conductor data cleared!');
+            }
+        } else {
+            // Incorrect passcode
+            showNotification('Incorrect passcode. Data was not cleared.', 'error');
         }
     }
+    // --- END OF FEATURE ---
 
     /**
      * Save and load session data (bus #, driver, conductor)
@@ -734,246 +743,252 @@ Total Collected Payments: ₱${stats.totalPayments.toFixed(2)}
                 if (ticketToEl) ticketToEl.textContent = currentTicket.to;
 
                 // Show passenger page
-                // (passengerCount input validation will be required before proceeding to ticket)
                 showPage('passenger');
             });
         });
     }
 
-    // Passenger count input handling (no default '1' — placeholder guided)
-    if (passengerCountInput) {
-        // Set placeholder if empty
-        passengerCountInput.placeholder = "Enter how many Passenger in this Route?";
-
-        passengerCountInput.addEventListener('input', (e) => {
-            let value = e.target.value;
-            // Remove any non-digit
-            value = value.replace(/\D/g, '');
-
-            // If empty or zero -> show error and keep empty
-            if (value === '' || value === '0') {
-                // show red error notification
-                showNotification('Cannot Enter a No. of Passenger in 0', 'error');
-                e.target.value = ''; // clear invalid input
-                currentTicket.passengerCount = 0;
-                // Do not calculate fare or allow proceeding
-                return;
-            }
-
-            // Limit to 2 digits (1-99)
-            if (value.length > 2) value = value.slice(0, 2);
-
-            e.target.value = value;
-            currentTicket.passengerCount = parseInt(value) || 0;
-            // Update fare live
-            calculateFare();
-            displayTicketSummary();
-        });
-    }
-
-    // Proceed from Home (set session details)
-    const proceedHomeBtn = document.getElementById('proceed-home-btn');
-    if (proceedHomeBtn) {
-        proceedHomeBtn.addEventListener('click', () => {
-            const busNumber = busNumberInput ? busNumberInput.value.trim() : '';
-            const driverName = driverNameInput ? driverNameInput.value.trim() : '';
-            const conductorName = conductorNameInput ? conductorNameInput.value.trim() : '';
-
-            if (busNumber && driverName && conductorName) {
-                sessionData.busNumber = busNumber;
-                sessionData.driverName = driverName;
-                sessionData.conductorName = conductorName;
-                saveSessionData();
-
-                currentTicket.busNumber = busNumber;
-                currentTicket.driverName = driverName;
-                currentTicket.conductorName = conductorName;
-
-                if (displayBusNumberHeader) displayBusNumberHeader.textContent = `BUS #: ${busNumber}`;
-                if (displayDriverNameHeader) displayDriverNameHeader.textContent = `DRIVER: ${driverName}`;
-                if (displayConductorNameHeader) displayConductorNameHeader.textContent = `CONDUCTOR: ${conductorName}`;
-                if (ticketBusNumberDisplay) ticketBusNumberDisplay.textContent = `BUS #: ${busNumber}`;
-
-                loadSessionData();
-                showPage('selectionLoop');
-            } else {
-                showNotification('Please fill in all fields (Bus Number, Driver Name, Conductor Name)', 'error');
-            }
-        });
-    }
-
-    // Route direction buttons (FVR->ST.CRUZ and reverse)
-    const fvrToStCruzBtn = document.getElementById('fvr-to-stcruz-btn');
-    if (fvrToStCruzBtn) {
-        fvrToStCruzBtn.addEventListener('click', () => {
-            generateRouteButtons(false);
-            showPage('selectionRoute');
-        });
-    }
-
-    const stCruzToFvrBtn = document.getElementById('stcruz-to-fvr-btn');
-    if (stCruzToFvrBtn) {
-        stCruzToFvrBtn.addEventListener('click', () => {
-            generateRouteButtons(true);
-            showPage('selectionRoute');
-        });
-    }
-
-    // Passenger type buttons (Regular / Student / Senior)
-    const regularBtn = document.getElementById('regular-btn');
-    if (regularBtn) {
-        regularBtn.addEventListener('click', () => {
-            // Validate passenger count > 0 before proceeding
-            if (!currentTicket.passengerCount || currentTicket.passengerCount <= 0) {
-                showNotification('Cannot Enter a No. of Passenger in 0', 'error');
-                return;
-            }
-            currentTicket.passengerType = "regular";
-            calculateFare();
-            displayTicketSummary();
-            showPage('ticket');
-        });
-    }
-
-    const studentBtn = document.getElementById('student-btn');
-    if (studentBtn) {
-        studentBtn.addEventListener('click', () => {
-            if (!currentTicket.passengerCount || currentTicket.passengerCount <= 0) {
-                showNotification('Cannot Enter a No. of Passenger in 0', 'error');
-                return;
-            }
-            currentTicket.passengerType = "student";
-            calculateFare();
-            displayTicketSummary();
-            showPage('ticket');
-        });
-    }
-
-    const seniorBtn = document.getElementById('senior-btn');
-    if (seniorBtn) {
-        seniorBtn.addEventListener('click', () => {
-            if (!currentTicket.passengerCount || currentTicket.passengerCount <= 0) {
-                showNotification('Cannot Enter a No. of Passenger in 0', 'error');
-                return;
-            }
-            currentTicket.passengerType = "senior";
-            calculateFare();
-            displayTicketSummary();
-            showPage('ticket');
-        });
-    }
-
-    // Payment method buttons
-    const gcashBtn = document.getElementById('gcash-btn');
-    if (gcashBtn) {
-        gcashBtn.addEventListener('click', () => {
-            if (!currentTicket.finalFare || currentTicket.finalFare <= 0) {
-                showNotification('Walang amount na ma-process. Check passenger count and fare.', 'error');
-                return;
-            }
-            currentTicket.paymentMethod = "GCash";
-            stats.cashlessPayments += currentTicket.finalFare;
-            showPage('qrcode');
-
-            // Timeout to auto-complete payment (simulated)
-            qrCodeTimer = setTimeout(() => {
-                completePaymentFlow();
-            }, 5000); // 5 seconds
-        });
-    }
-
-    const cashBtn = document.getElementById('cash-btn');
-    if (cashBtn) {
-        cashBtn.addEventListener('click', () => {
-            if (!currentTicket.finalFare || currentTicket.finalFare <= 0) {
-                showNotification('Walang amount na ma-process. Check passenger count and fare.', 'error');
-                return;
-            }
-            currentTicket.paymentMethod = "CASH";
-            stats.cashPayments += currentTicket.finalFare;
-            completePaymentFlow();
-        });
-    }
-
-    // Navigation/back buttons mapping
-    const backButtons = {
-        'back-from-loop': 'home',
-        'back-from-sub-route': 'selectionLoop',
-        'back-from-passenger': 'selectionRoute',
-        'back-from-ticket': 'passenger',
-        'back-from-conductor-route': 'selectionLoop',
-        'back-from-conductor-home': 'home',
-        'back-from-fare-data': 'conductorHome'
-    };
-
-    Object.entries(backButtons).forEach(([id, page]) => {
-        const btn = document.getElementById(id);
-        if (btn) btn.addEventListener('click', () => showPage(page));
-    });
-
-    // Back from QR code page (cancel timer)
-    const backFromQrCodeBtn = document.getElementById('back-from-qrcode');
-    if (backFromQrCodeBtn) {
-        backFromQrCodeBtn.addEventListener('click', () => {
-            if (qrCodeTimer) clearTimeout(qrCodeTimer);
-            showPage('ticket');
-        });
-    }
-
-    // Conductor menu buttons
-    const conductorMenuHomeBtn = document.getElementById('conductor-menu-home-btn');
-    if (conductorMenuHomeBtn) conductorMenuHomeBtn.addEventListener('click', () => { updateStatsDisplay(true); showPage('conductorHome'); });
-
-    const conductorMenuMainBtn = document.getElementById('conductor-menu-main-btn');
-    if (conductorMenuMainBtn) conductorMenuMainBtn.addEventListener('click', () => { updateStatsDisplay(false); showPage('conductorRoute'); });
-
-    // Print / Save reports buttons
-    ['print-report-home-btn', 'print-report-route-btn'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('click', saveConductorReportAsTxt);
-    });
-
-    // View fare data
-    ['view-fare-data-home-btn', 'view-fare-data-route-btn'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('click', () => { displayIssuedTickets(); showPage('fareData'); });
-    });
-
-    // Export to Excel button
-    const exportExcelBtn = document.getElementById('export-excel-btn');
-    if (exportExcelBtn) exportExcelBtn.addEventListener('click', exportToExcel);
-
-    // Clear data button
-    if (clearDataBtn) clearDataBtn.addEventListener('click', clearAllData);
-
-    // Proceed Print from QR
-    if (proceedQrCodeBtn) proceedQrCodeBtn.addEventListener('click', completePaymentFlow);
-
     // =========================
-    // --- INITIALIZATION ------
+    // --- EVENT LISTENERS ----
     // =========================
 
-    function initApp() {
-        // Update date/time on load and every minute
-        updateDateTime();
-        setInterval(updateDateTime, 60000);
+    // Home page: PROCEED button
+    document.getElementById('proceed-home-btn')?.addEventListener('click', () => {
+        // Save session data first
+        sessionData.busNumber = busNumberInput.value;
+        sessionData.driverName = driverNameInput.value;
+        sessionData.conductorName = conductorNameInput.value;
+        saveSessionData();
+        
+        // Update header displays
+        if (displayBusNumberHeader) displayBusNumberHeader.textContent = `BUS #: ${sessionData.busNumber}`;
+        if (displayDriverNameHeader) displayDriverNameHeader.textContent = `DRIVER: ${sessionData.driverName}`;
+        if (displayConductorNameHeader) displayConductorNameHeader.textContent = `CONDUCTOR: ${sessionData.conductorName}`;
+        
+        // Update current ticket
+        currentTicket.busNumber = sessionData.busNumber;
+        currentTicket.driverName = sessionData.driverName;
+        currentTicket.conductorName = sessionData.conductorName;
+        
+        // Proceed to selection loop
+        showPage('selectionLoop');
+    });
 
-        loadSessionData();
+    // Home page: Conductor Menu button
+    document.getElementById('conductor-menu-home-btn')?.addEventListener('click', () => {
+        // Save session data first
+        sessionData.busNumber = busNumberInput.value;
+        sessionData.driverName = driverNameInput.value;
+        sessionData.conductorName = conductorNameInput.value;
+        saveSessionData();
+        
+        // Update header displays
+        if (displayBusNumberHeader) displayBusNumberHeader.textContent = `BUS #: ${sessionData.busNumber}`;
+        if (displayDriverNameHeader) displayDriverNameHeader.textContent = `DRIVER: ${sessionData.driverName}`;
+        if (displayConductorNameHeader) displayConductorNameHeader.textContent = `CONDUCTOR: ${sessionData.conductorName}`;
+        
+        // Update current ticket
+        currentTicket.busNumber = sessionData.busNumber;
+        currentTicket.driverName = sessionData.driverName;
+        currentTicket.conductorName = sessionData.conductorName;
+        
+        // Go to conductor page
+        showPage('conductorHome');
+    });
+
+    // --- FIX: Dinagdag ang event listener para sa conductor menu button sa selection loop page ---
+    // Selection Loop: Conductor Menu button
+    document.getElementById('conductor-menu-main-btn')?.addEventListener('click', () => {
+        // This button should also lead to the main conductor report page
+        showPage('conductorHome');
+    });
+    // --- END OF FIX ---
+
+    // Selection Loop: FVR to ST.CRUZ
+    document.getElementById('fvr-to-stcruz-btn')?.addEventListener('click', () => {
+        generateRouteButtons(false);
+        showPage('selectionRoute');
+    });
+
+    // Selection Loop: ST.CRUZ to FVR
+    document.getElementById('stcruz-to-fvr-btn')?.addEventListener('click', () => {
+        generateRouteButtons(true);
+        showPage('selectionRoute');
+    });
+
+    // Selection Loop: Back button
+    document.getElementById('back-from-loop')?.addEventListener('click', () => {
         showPage('home');
-        updateStatsDisplay();
-        getLocation();
+    });
 
-        // If there are pre-saved issued tickets, update UI
-        if (issuedTickets && issuedTickets.length) {
-            // update conductor stats display
-            updateStatsDisplay(true);
+    // Selection Route: Back button
+    document.getElementById('back-from-sub-route')?.addEventListener('click', () => {
+        showPage('selectionLoop');
+    });
+
+    // Passenger page: Back button
+    document.getElementById('back-from-passenger')?.addEventListener('click', () => {
+        showPage('selectionRoute');
+    });
+
+    // Passenger page: Passenger type buttons
+    document.getElementById('regular-btn')?.addEventListener('click', () => {
+        currentTicket.passengerType = "regular";
+        calculateFare();
+        proceedToTicket();
+    });
+
+    document.getElementById('student-btn')?.addEventListener('click', () => {
+        currentTicket.passengerType = "student";
+        calculateFare();
+        proceedToTicket();
+    });
+
+    document.getElementById('senior-btn')?.addEventListener('click', () => {
+        currentTicket.passengerType = "senior";
+        calculateFare();
+        proceedToTicket();
+    });
+
+    // Function to proceed to ticket page with validation
+    function proceedToTicket() {
+        const passengerCount = parseInt(passengerCountInput.value) || 0;
+        
+        if (passengerCount <= 0 || isNaN(passengerCount)) {
+            showNotification('Cannot enter a value of 0. Please enter a valid number of passengers.', 'error');
+            return;
         }
+        
+        currentTicket.passengerCount = passengerCount;
+        calculateFare();
+        displayTicketSummary();
+        showPage('ticket');
     }
 
-    // Start app
-    initApp();
+    // Passenger count input validation
+    passengerCountInput?.addEventListener('input', () => {
+        calculateFare();
+    });
 
-    // -------------------------
-    // End of DOMContentLoaded
-    // -------------------------
+    // Ticket page: Back button
+    document.getElementById('back-from-ticket')?.addEventListener('click', () => {
+        showPage('passenger');
+    });
+
+    // Ticket page: GCash button
+    document.getElementById('gcash-btn')?.addEventListener('click', () => {
+        currentTicket.paymentMethod = "GCash";
+        if (ticketBusNumberDisplay) ticketBusNumberDisplay.textContent = `BUS #: ${currentTicket.busNumber}`;
+        showPage('qrcode');
+        // Set timer to auto-complete after 10 seconds
+        qrCodeTimer = setTimeout(() => {
+            completePaymentFlow();
+        }, 10000);
+    });
+
+    // Ticket page: Cash button
+    document.getElementById('cash-btn')?.addEventListener('click', () => {
+        currentTicket.paymentMethod = "Cash";
+        if (currentTicket.paymentMethod === "Cash") {
+            stats.cashPayments += currentTicket.finalFare;
+        } else {
+            stats.cashlessPayments += currentTicket.finalFare;
+        }
+        completePaymentFlow();
+    });
+
+    // QR Code page: Proceed button (manual complete)
+    proceedQrCodeBtn?.addEventListener('click', () => {
+        if (currentTicket.paymentMethod === "GCash") {
+            stats.cashlessPayments += currentTicket.finalFare;
+        }
+        completePaymentFlow();
+    });
+
+    // QR Code page: Back button
+    document.getElementById('back-from-qrcode')?.addEventListener('click', () => {
+        showPage('ticket');
+    });
+
+    // Conductor Home: Back button
+    document.getElementById('back-from-conductor-home')?.addEventListener('click', () => {
+        showPage('home');
+    });
+
+    // Conductor Route: Back button
+    document.getElementById('back-from-conductor-route')?.addEventListener('click', () => {
+        showPage('conductorHome');
+    });
+
+    // Conductor Home: Print Report button
+    document.getElementById('print-report-home-btn')?.addEventListener('click', () => {
+        saveConductorReportAsTxt();
+    });
+
+    // Conductor Route: Print Report button
+    document.getElementById('print-report-route-btn')?.addEventListener('click', () => {
+        saveConductorReportAsTxt();
+    });
+
+    // Conductor Home: View Fare Data button
+    document.getElementById('view-fare-data-home-btn')?.addEventListener('click', () => {
+        displayIssuedTickets();
+        showPage('fareData');
+    });
+
+    // Conductor Route: View Fare Data button
+    document.getElementById('view-fare-data-route-btn')?.addEventListener('click', () => {
+        displayIssuedTickets();
+        showPage('fareData');
+    });
+
+    // Fare Data: Back button
+    document.getElementById('back-from-fare-data')?.addEventListener('click', () => {
+        showPage('conductorRoute');
+    });
+
+    // Fare Data: Export to Excel button
+    document.getElementById('export-excel-btn')?.addEventListener('click', () => {
+        exportToExcel();
+    });
+
+    // Clear Data button
+    clearDataBtn?.addEventListener('click', () => {
+        clearAllData();
+    });
+
+    // Session data inputs (bus #, driver, conductor)
+    busNumberInput?.addEventListener('input', () => {
+        sessionData.busNumber = busNumberInput.value;
+        currentTicket.busNumber = busNumberInput.value;
+        if (displayBusNumberHeader) displayBusNumberHeader.textContent = `BUS #: ${busNumberInput.value}`;
+        saveSessionData();
+    });
+
+    driverNameInput?.addEventListener('input', () => {
+        sessionData.driverName = driverNameInput.value;
+        currentTicket.driverName = driverNameInput.value;
+        if (displayDriverNameHeader) displayDriverNameHeader.textContent = `DRIVER: ${driverNameInput.value}`;
+        saveSessionData();
+    });
+
+    conductorNameInput?.addEventListener('input', () => {
+        sessionData.conductorName = conductorNameInput.value;
+        currentTicket.conductorName = conductorNameInput.value;
+        if (displayConductorNameHeader) displayConductorNameHeader.textContent = `CONDUCTOR: ${conductorNameInput.value}`;
+        saveSessionData();
+    });
+
+    // =========================
+    // --- INITIALIZATION -----
+    // =========================
+
+    // Initialize
+    getLocation();
+    loadSessionData();
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // Start on home page
+    showPage('home');
 });

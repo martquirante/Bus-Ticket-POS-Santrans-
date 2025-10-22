@@ -1,3 +1,4 @@
+/* Style para sa 'body', para mas maging maayos at malinaw yung itsura */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,6 +14,7 @@ body {
     box-sizing: border-box;
 }
 
+/* Style para sa '.main-wrapper', para mas maging maayos at malinaw yung itsura */
 .main-wrapper {
     width: 100%;
     max-width: 600px;
@@ -23,6 +25,7 @@ body {
 }
 
 /* Binago ang style na ito para sa left-aligned na logo at centered na text */
+/* Style para sa '.app-header', para mas maging maayos at malinaw yung itsura */
 .app-header {
     background-color: rgb(255, 239, 137);
     color: #333;
@@ -37,12 +40,14 @@ body {
     justify-content: flex-start; /* Ito ang naglalagay ng content sa kaliwa */
 }
 
+/* Style para sa '.app-header .header-logo', para mas maging maayos at malinaw yung itsura */
 .app-header .header-logo {
     width: 90px;
     height: auto;
     flex-shrink: 0;
 }
 
+/* Style para sa '.header-text-content', para mas maging maayos at malinaw yung itsura */
 .header-text-content {
     display: flex;
     flex-direction: column;
@@ -51,6 +56,7 @@ body {
     text-align: center; /* Inayos para ang text ay naka-center */
 }
 
+/* Style para sa '.app-header h1', para mas maging maayos at malinaw yung itsura */
 .app-header h1 {
     margin: 0;
     font-size: 32px;
@@ -59,6 +65,7 @@ body {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
+/* Style para sa '.app-header .header-tagline', para mas maging maayos at malinaw yung itsura */
 .app-header .header-tagline {
     margin: 2px 0;
     font-size: 15px;
@@ -66,6 +73,7 @@ body {
     color: #666;
 }
 
+/* Style para sa '.container', para mas maging maayos at malinaw yung itsura */
 .container {
     width: 100%;
     background-color: white;
@@ -75,6 +83,7 @@ body {
     box-sizing: border-box;
 }
 
+/* Style para sa '.header-sub', para mas maging maayos at malinaw yung itsura */
 .header-sub {
     text-align: center;
     margin-bottom: 20px;
@@ -82,6 +91,7 @@ body {
     padding-bottom: 10px;
 }
 
+/* Style para sa '.header-sub h2', para mas maging maayos at malinaw yung itsura */
 .header-sub h2 {
     font-size: 24px;
     margin: 5px 0;
@@ -89,11 +99,13 @@ body {
 }
 
 /* Updated inputs section */
+/* Style para sa '.input-group', para mas maging maayos at malinaw yung itsura */
 .input-group {
     margin-bottom: 20px;
     text-align: center;
 }
 
+/* Style para sa '.input-group label', para mas maging maayos at malinaw yung itsura */
 .input-group label {
     display: block;
     margin-bottom: 8px;
@@ -102,6 +114,7 @@ body {
 }
 
 .input-group input[type="text"],
+/* Style para sa '.input-group input[type="number"]', para mas maging maayos at malinaw yung itsura */
 .input-group input[type="number"] {
     width: calc(100% - 20px);
     padding: 12px 10px;
@@ -112,6 +125,7 @@ body {
     text-align: left;
 }
 
+/* Style para sa '#passenger-count-input', para mas maging maayos at malinaw yung itsura */
 #passenger-count-input {
     width: 60px;
     padding: 12px 10px;
@@ -124,11 +138,13 @@ body {
 }
 
 #passenger-count-input::-webkit-outer-spin-button,
+/* Style para sa '#passenger-count-input::-webkit-inner-spin-button', para mas maging maayos at malinaw yung itsura */
 #passenger-count-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
+/* Style para sa '.btn', para mas maging maayos at malinaw yung itsura */
 .btn {
     display: block;
     width: 100%;
@@ -144,25 +160,30 @@ body {
     box-sizing: border-box;
 }
 
+/* Style para sa '.btn:hover', para mas maging maayos at malinaw yung itsura */
 .btn:hover {
     background-color: #0055aa;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn:active', para mas maging maayos at malinaw yung itsura */
 .btn:active {
     transform: translateY(0);
 }
 
+/* Style para sa '.btn-secondary', para mas maging maayos at malinaw yung itsura */
 .btn-secondary {
     background-color: #6c757d;
     transition: background-color 0.3s, transform 0.2s;
 }
 
+/* Style para sa '.btn-secondary:hover', para mas maging maayos at malinaw yung itsura */
 .btn-secondary:hover {
     background-color: #5a6268;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn-danger', para mas maging maayos at malinaw yung itsura */
 .btn-danger {
     background-color: #dc3545;
     color: #ffffff;
@@ -170,32 +191,38 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s;
 }
 
+/* Style para sa '.btn-danger:hover', para mas maging maayos at malinaw yung itsura */
 .btn-danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn-green', para mas maging maayos at malinaw yung itsura */
 .btn-green {
     background-color: #28a745;
     transition: background-color 0.3s, transform 0.2s;
 }
 
+/* Style para sa '.btn-green:hover', para mas maging maayos at malinaw yung itsura */
 .btn-green:hover {
     background-color: #218838;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn-orange', para mas maging maayos at malinaw yung itsura */
 .btn-orange {
     background-color: #fd7e14;
     transition: background-color 0.3s, transform 0.2s;
 }
 
+/* Style para sa '.btn-orange:hover', para mas maging maayos at malinaw yung itsura */
 .btn-orange:hover {
     background-color: #e8720e;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.gcash-payment-btn', para mas maging maayos at malinaw yung itsura */
 .gcash-payment-btn {
     background-color: transparent !important;
     border: 2px solid #000080;
@@ -207,12 +234,14 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s;
 }
 
+/* Style para sa '.gcash-payment-btn:hover', para mas maging maayos at malinaw yung itsura */
 .gcash-payment-btn:hover {
     background-color: rgba(0, 0, 128, 0.1) !important;
     border-color: #000080;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.gcash-payment-btn .button-logo', para mas maging maayos at malinaw yung itsura */
 .gcash-payment-btn .button-logo {
     width: 30px;
     height: auto;
@@ -220,6 +249,7 @@ body {
     vertical-align: middle;
 }
 
+/* Style para sa '.info-item', para mas maging maayos at malinaw yung itsura */
 .info-item {
     margin: 15px 0;
     padding: 12px;
@@ -229,12 +259,14 @@ body {
     line-height: 1.6;
 }
 
+/* Style para sa '.info-label', para mas maging maayos at malinaw yung itsura */
 .info-label {
     font-weight: bold;
     margin-bottom: 5px;
     color: #0066cc;
 }
 
+/* Style para sa '.payment-methods', para mas maging maayos at malinaw yung itsura */
 .payment-methods {
     display: flex;
     flex-wrap: wrap;
@@ -243,24 +275,29 @@ body {
     justify-content: center;
 }
 
+/* Style para sa '.payment-methods .btn', para mas maging maayos at malinaw yung itsura */
 .payment-methods .btn {
     flex: 1 1 calc(50% - 15px);
     min-width: 150px;
 }
 
+/* Style para sa '.hidden', para mas maging maayos at malinaw yung itsura */
 .hidden {
     display: none;
 }
 
+/* Style para sa '.page', para mas maging maayos at malinaw yung itsura */
 .page {
     animation: fadeIn 0.5s ease-out;
 }
 
+/* Style para sa '@keyframes fadeIn', para mas maging maayos at malinaw yung itsura */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Style para sa '.scrollable', para mas maging maayos at malinaw yung itsura */
 .scrollable {
     max-height: 50vh;
     overflow-y: auto;
@@ -271,6 +308,7 @@ body {
     padding: 10px;
 }
 
+/* Style para sa '.scrollable h3', para mas maging maayos at malinaw yung itsura */
 .scrollable h3 {
     margin-top: 0;
     margin-bottom: 10px;
@@ -278,6 +316,7 @@ body {
     font-size: 1.2em;
 }
 
+/* Style para sa '.total-fare', para mas maging maayos at malinaw yung itsura */
 .total-fare {
     font-size: 1.3em;
     font-weight: bold;
@@ -289,6 +328,7 @@ body {
 }
 
 /* Receipt Notification */
+/* Style para sa '.receipt-notification', para mas maging maayos at malinaw yung itsura */
 .receipt-notification {
     position: fixed;
     bottom: 30px;
@@ -307,10 +347,12 @@ body {
     animation: slideInUp 0.5s forwards, fadeOut 1s 2.5s forwards;
 }
 
+/* Style para sa '.receipt-notification.hidden', para mas maging maayos at malinaw yung itsura */
 .receipt-notification.hidden {
     display: none;
 }
 
+/* Style para sa '.notification-icon', para mas maging maayos at malinaw yung itsura */
 .notification-icon {
     background-color: white;
     color: #4CAF50;
@@ -323,28 +365,34 @@ body {
     font-size: 18px;
 }
 
+/* Style para sa '@keyframes slideInUp', para mas maging maayos at malinaw yung itsura */
 @keyframes slideInUp {
+/* Style para sa 'from', para mas maging maayos at malinaw yung itsura */
     from {
         transform: translate(-50%, 100px);
         opacity: 0;
     }
+/* Style para sa 'to', para mas maging maayos at malinaw yung itsura */
     to {
         transform: translate(-50%, 0);
         opacity: 1;
     }
 }
 
+/* Style para sa '@keyframes fadeOut', para mas maging maayos at malinaw yung itsura */
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
 }
 
 /* QR Code Page Styling */
+/* Style para sa '.qr-code-container', para mas maging maayos at malinaw yung itsura */
 .qr-code-container {
     text-align: center;
     padding: 20px;
 }
 
+/* Style para sa '.gcash-qr-image', para mas maging maayos at malinaw yung itsura */
 .gcash-qr-image {
     max-width: 80%;
     height: auto;
@@ -353,12 +401,14 @@ body {
 }
 
 /* GCash Logo Footer */
+/* Style para sa '.footer', para mas maging maayos at malinaw yung itsura */
 .footer {
     text-align: center;
     margin-top: 20px;
     padding: 10px 0;
 }
 
+/* Style para sa '.gcash-logo', para mas maging maayos at malinaw yung itsura */
 .gcash-logo {
     width: 100px;
     height: auto;
@@ -366,14 +416,18 @@ body {
 }
 
 /* Responsive Design */
+/* Style para sa '@media (max-width: 768px)', para mas maging maayos at malinaw yung itsura */
 @media (max-width: 768px) {
+/* Style para sa 'body', para mas maging maayos at malinaw yung itsura */
     body {
         padding: 10px;
     }
+/* Style para sa '.main-wrapper', para mas maging maayos at malinaw yung itsura */
     .main-wrapper {
         padding: 0;
         gap: 15px;
     }
+/* Style para sa '.app-header', para mas maging maayos at malinaw yung itsura */
     .app-header {
         flex-direction: row;
         flex-wrap: wrap;
@@ -383,63 +437,78 @@ body {
         gap: 10px;
         margin-bottom: 15px;
     }
+/* Style para sa '.app-header .header-logo', para mas maging maayos at malinaw yung itsura */
     .app-header .header-logo {
         width: 70px;
     }
+/* Style para sa '.app-header h1', para mas maging maayos at malinaw yung itsura */
     .app-header h1 {
         font-size: 26px;
         width: 100%;
         text-align: center;
         margin-top: 5px;
     }
+/* Style para sa '.app-header .header-tagline', para mas maging maayos at malinaw yung itsura */
     .app-header .header-tagline {
         font-size: 13px;
         width: 100%;
         text-align: center;
     }
+/* Style para sa '.header-text-content', para mas maging maayos at malinaw yung itsura */
     .header-text-content {
         align-items: center;
         width: calc(100% - 80px);
     }
+/* Style para sa '.container', para mas maging maayos at malinaw yung itsura */
     .container {
         padding: 15px;
     }
+/* Style para sa '.header-sub h2', para mas maging maayos at malinaw yung itsura */
     .header-sub h2 {
         font-size: 20px;
     }
     .input-group input[type="text"],
+/* Style para sa '.input-group input[type="number"]', para mas maging maayos at malinaw yung itsura */
     .input-group input[type="number"] {
         width: calc(100% - 16px);
         padding: 10px 8px;
         font-size: 1em;
     }
+/* Style para sa '#passenger-count-input', para mas maging maayos at malinaw yung itsura */
     #passenger-count-input {
         width: 50px;
         padding: 10px 8px;
         font-size: 1em;
     }
+/* Style para sa '.btn', para mas maging maayos at malinaw yung itsura */
     .btn {
         padding: 12px;
         font-size: 16px;
     }
+/* Style para sa '.payment-methods', para mas maging maayos at malinaw yung itsura */
     .payment-methods {
         gap: 10px;
     }
+/* Style para sa '.payment-methods .btn', para mas maging maayos at malinaw yung itsura */
     .payment-methods .btn {
         flex: 1 1 100%;
     }
+/* Style para sa '.info-item', para mas maging maayos at malinaw yung itsura */
     .info-item {
         font-size: 1em;
         margin: 10px 0;
         padding: 10px;
     }
+/* Style para sa '.scrollable', para mas maging maayos at malinaw yung itsura */
     .scrollable {
         max-height: 40vh;
         padding-right: 5px;
     }
+/* Style para sa '.scrollable h3', para mas maging maayos at malinaw yung itsura */
     .scrollable h3 {
         font-size: 1.1em;
     }
+/* Style para sa '.receipt-notification', para mas maging maayos at malinaw yung itsura */
     .receipt-notification {
         width: calc(100% - 40px);
         text-align: center;
@@ -447,15 +516,18 @@ body {
         font-size: 1em;
         bottom: 20px;
     }
+/* Style para sa '.gcash-logo', para mas maging maayos at malinaw yung itsura */
     .gcash-logo {
         width: 80px;
     }
+/* Style para sa '.gcash-qr-image', para mas maging maayos at malinaw yung itsura */
     .gcash-qr-image {
         max-width: 95%;
     }
 }
 
 /* --- User-requested Styles with Animations --- */
+/* Style para sa '.btn-conductor-menu', para mas maging maayos at malinaw yung itsura */
 .btn-conductor-menu {
     background-color: transparent !important;
     border: 2px solid #28a745 !important;
@@ -463,12 +535,14 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
 }
 
+/* Style para sa '.btn-conductor-menu:hover', para mas maging maayos at malinaw yung itsura */
 .btn-conductor-menu:hover {
     background-color: #28a745 !important;
     color: white !important;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn-fare-collection', para mas maging maayos at malinaw yung itsura */
 .btn-fare-collection {
     background-color: transparent !important;
     border: 2px solid #fd7e14 !important;
@@ -476,12 +550,14 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
 }
 
+/* Style para sa '.btn-fare-collection:hover', para mas maging maayos at malinaw yung itsura */
 .btn-fare-collection:hover {
     background-color: #fd7e14 !important;
     color: white !important;
     transform: translateY(-2px);
 }
 
+/* Style para sa '#clear-data-btn', para mas maging maayos at malinaw yung itsura */
 #clear-data-btn {
     background-color: transparent !important;
     border: 2px solid #dc3545 !important;
@@ -489,12 +565,14 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
 }
 
+/* Style para sa '#clear-data-btn:hover', para mas maging maayos at malinaw yung itsura */
 #clear-data-btn:hover {
     background-color: #dc3545 !important;
     color: white !important;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn-print-report', para mas maging maayos at malinaw yung itsura */
 .btn-print-report {
     background-color: transparent !important;
     border: 2px solid #0066cc !important;
@@ -502,12 +580,14 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
 }
 
+/* Style para sa '.btn-print-report:hover', para mas maging maayos at malinaw yung itsura */
 .btn-print-report:hover {
     background-color: #0066cc !important;
     color: white !important;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.btn-back', para mas maging maayos at malinaw yung itsura */
 .btn-back {
     background-color: transparent !important;
     border: 2px solid #6c757d !important;
@@ -515,12 +595,14 @@ body {
     transition: background-color 0.3s, transform 0.2s, border 0.3s, color 0.3s;
 }
 
+/* Style para sa '.btn-back:hover', para mas maging maayos at malinaw yung itsura */
 .btn-back:hover {
     background-color: #6c757d !important;
     color: white !important;
     transform: translateY(-2px);
 }
 
+/* Style para sa '.notification', para mas maging maayos at malinaw yung itsura */
 .notification {
     position: fixed;
     top: 20px;
@@ -536,17 +618,20 @@ body {
     transition: opacity 0.5s ease-in-out;
 }
 
+/* Style para sa '.notification.hidden', para mas maging maayos at malinaw yung itsura */
 .notification.hidden {
     opacity: 0;
     visibility: hidden;
 }
 
 /* Red style for error messages */
+/* Style para sa '#error-notification', para mas maging maayos at malinaw yung itsura */
 #error-notification {
     background-color: #dc3545; /* Red for errors */
 }
 
 /* ====== NEW STYLES FOR LARGER ROUTE BUTTONS ====== */
+/* Style para sa '.route-btn', para mas maging maayos at malinaw yung itsura */
 .route-btn {
     width: 100%;
     padding: 20px 15px;
@@ -563,12 +648,14 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Style para sa '.route-btn:hover', para mas maging maayos at malinaw yung itsura */
 .route-btn:hover {
     background-color: #0055aa;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
+/* Style para sa '.route-buttons-container h3', para mas maging maayos at malinaw yung itsura */
 .route-buttons-container h3 {
     font-size: 1.3em;
     margin: 20px 0 10px 0;
@@ -580,6 +667,7 @@ body {
 }
 
 /* Make the scrollable container for routes taller */
+/* Style para sa '#route-buttons-container.scrollable', para mas maging maayos at malinaw yung itsura */
 #route-buttons-container.scrollable {
     max-height: 60vh;
     padding: 15px;
